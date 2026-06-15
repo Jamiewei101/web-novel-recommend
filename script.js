@@ -146,9 +146,15 @@
     var imgW = document.createElement('div');
     imgW.className = 'card-cover';
     var img = document.createElement('img');
-    img.src = novel.cover;
+    // 优先加载源站封面，失败则回退本地 SVG，再失败回退首字符
+    img.src = novel.coverUrl || novel.cover;
     img.alt = novel.title[lang] || novel.title.zh;
     img.onerror = function () {
+      if (img.src !== novel.cover && novel.cover) {
+        // coverUrl 加载失败 → 尝试本地 SVG
+        img.src = novel.cover;
+        return;
+      }
       img.style.display = 'none';
       var fb = document.createElement('span');
       fb.className = 'cover-fallback';
@@ -575,7 +581,7 @@
     var statusTxt = novel.status[currentLang] || novel.status.zh;
 
     modalBody.innerHTML =
-      '<div class="modal-cover"><img src="' + novel.cover + '" alt="' + titleTxt + '"></div>' +
+      '<div class="modal-cover"><img src="' + (novel.coverUrl || novel.cover) + '" alt="' + titleTxt + '" id="modalCoverImg"></div>' +
       '<div class="modal-inner">' +
         '<h2 class="modal-title">' + titleTxt + '</h2>' +
         '<p class="modal-author">' + authorTxt + '</p>' +
@@ -588,6 +594,17 @@
         '</div>' +
         '<div class="modal-tags">' + tagsHtml + '</div>' +
       '</div>';
+
+    // 模态框封面回退：coverUrl 失败 → 尝试本地 SVG
+    var modalImg = document.getElementById('modalCoverImg');
+    if (modalImg) {
+      modalImg.onerror = function () {
+        if (this.src !== novel.cover && novel.cover) {
+          this.src = novel.cover;
+          this.onerror = null;
+        }
+      };
+    }
 
     modal.classList.add('open');
   }
