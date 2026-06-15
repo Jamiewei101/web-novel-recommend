@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="page-title">网络小说出海推荐网页</title>
+  <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+  <!-- 语言切换 -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="zh" data-i18n="lang-zh">🇨🇳 中文</button>
+    <button class="lang-btn" data-lang="en" data-i18n="lang-en">🇬🇧 English</button>
+  </div>
+
+  <div id="app"></div>
+
+  <!-- 小说详情模态框 -->
+  <div id="modal" class="modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="script.js?v=4"></script>
+</body>
+</html>

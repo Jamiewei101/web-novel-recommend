@@ -1,0 +1,460 @@
+[
+  {
+    "id": 1,
+    "title": {
+      "zh": "斗破苍穹",
+      "en": "Battle Through the Heavens"
+    },
+    "author": {
+      "zh": "天蚕土豆",
+      "en": "Heavenly Silkworm Potato"
+    },
+    "cover": "covers/cover_1.svg",
+    "rating": 4.7,
+    "readers": 125000,
+    "genres": [
+      "玄幻",
+      "动作",
+      "冒险"
+    ],
+    "summary": {
+      "zh": "这里是属于斗气的世界，没有花俏艳丽的魔法，有的，仅仅是繁衍到巅峰的斗气！",
+      "en": "In a land where no magic exists, a land where the strong make the rules and the weak are enslaved, a young man named Xiao Yan works to restore his family's honor."
+    },
+    "chapters": 1648,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "热血",
+      "升级流",
+      "强者回归"
+    ]
+  },
+  {
+    "id": 2,
+    "title": {
+      "zh": "凡人修仙传",
+      "en": "A Record of a Mortal's Journey to Immortality"
+    },
+    "author": {
+      "zh": "忘语",
+      "en": "Wang Yu"
+    },
+    "cover": "covers/cover_2.svg",
+    "rating": 4.6,
+    "readers": 98000,
+    "genres": [
+      "仙侠",
+      "奇幻"
+    ],
+    "summary": {
+      "zh": "一个普通的山村少年，偶然踏入修仙之门，从此走上了一条坎坷漫长的修仙之路。",
+      "en": "An ordinary village youth accidentally stumbles onto the path of immortality, beginning a long and arduous journey of cultivation."
+    },
+    "chapters": 2457,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "凡人流",
+      "经典",
+      "修仙"
+    ]
+  },
+  {
+    "id": 3,
+    "title": {
+      "zh": "全职高手",
+      "en": "The King's Avatar"
+    },
+    "author": {
+      "zh": "蝴蝶蓝",
+      "en": "Butterfly Blue"
+    },
+    "cover": "covers/cover_3.svg",
+    "rating": 4.8,
+    "readers": 142000,
+    "genres": [
+      "都市",
+      "游戏",
+      "竞技"
+    ],
+    "summary": {
+      "zh": "网游荣耀中被誉为斗神的叶修，因为种种原因遭到俱乐部的驱逐，离开职业圈的他转身成为网吧网管。",
+      "en": "Ye Xiu, hailed as the Battle God in the online game Glory, is expelled from his club for various reasons and becomes an internet café manager."
+    },
+    "chapters": 1728,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "电竞",
+      "热血",
+      "爽文"
+    ]
+  },
+  {
+    "id": 4,
+    "title": {
+      "zh": "三体",
+      "en": "The Three-Body Problem"
+    },
+    "author": {
+      "zh": "刘慈欣",
+      "en": "Liu Cixin"
+    },
+    "cover": "covers/cover_4.svg",
+    "rating": 4.9,
+    "readers": 200000,
+    "genres": [
+      "科幻",
+      "悬疑"
+    ],
+    "summary": {
+      "zh": "文化大革命末期，军方探寻外星文明的绝秘计划「红岸工程」取得了突破性进展。",
+      "en": "During the Cultural Revolution, a secret military project called Red Coast makes a breakthrough in contacting extraterrestrial civilization."
+    },
+    "chapters": 96,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "硬科幻",
+      "经典",
+      "宇宙"
+    ]
+  },
+  {
+    "id": 5,
+    "title": {
+      "zh": "魔道祖师",
+      "en": "Grandmaster of Demonic Cultivation"
+    },
+    "author": {
+      "zh": "墨香铜臭",
+      "en": "Mo Xiang Tong Xiu"
+    },
+    "cover": "covers/cover_5.svg",
+    "rating": 4.8,
+    "readers": 156000,
+    "genres": [
+      "仙侠",
+      "悬疑",
+      "奇幻"
+    ],
+    "summary": {
+      "zh": "前世的魏无羡万人唾骂，声名狼藉。重生后他遇到了旧识蓝忘机，两人携手探寻谜团背后的真相。",
+      "en": "Wei Wuxian was once reviled by the world. After being reborn, he reunites with an old acquaintance, Lan Wangji, to uncover the truth behind a series of mysteries."
+    },
+    "chapters": 126,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "耽美",
+      "悬疑",
+      "玄幻"
+    ]
+  },
+  {
+    "id": 6,
+    "title": {
+      "zh": "庆余年",
+      "en": "Joy of Life"
+    },
+    "author": {
+      "zh": "猫腻",
+      "en": "Mao Ni"
+    },
+    "cover": "covers/cover_6.svg",
+    "rating": 4.7,
+    "readers": 113000,
+    "genres": [
+      "玄幻",
+      "历史",
+      "权谋"
+    ],
+    "summary": {
+      "zh": "一个身世神秘的年轻人范闲，在家族、江湖、庙堂的纷争中逐渐成长，书写了一段传奇人生。",
+      "en": "A young man with a mysterious background, Fan Xian, grows up amidst the conflicts of family, martial arts world, and imperial court, writing a legendary life."
+    },
+    "chapters": 726,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "权谋",
+      "穿越",
+      "经典"
+    ]
+  },
+  {
+    "id": 7,
+    "title": {
+      "zh": "微微一笑很倾城",
+      "en": "Love O2O"
+    },
+    "author": {
+      "zh": "顾漫",
+      "en": "Gu Man"
+    },
+    "cover": "covers/cover_7.svg",
+    "rating": 4.5,
+    "readers": 87000,
+    "genres": [
+      "言情",
+      "都市",
+      "游戏"
+    ],
+    "summary": {
+      "zh": "系花贝微微在游戏中意外嫁给了全服第一高手，一段从线上到线下的甜蜜爱情就此展开。",
+      "en": "University beauty Bei Weiwei unexpectedly marries the top player in an online game, beginning a sweet romance that bridges the virtual and real worlds."
+    },
+    "chapters": 62,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "甜宠",
+      "轻松",
+      "校园"
+    ]
+  },
+  {
+    "id": 8,
+    "title": {
+      "zh": "诡秘之主",
+      "en": "Lord of the Mysteries"
+    },
+    "author": {
+      "zh": "爱潜水的乌贼",
+      "en": "Cuttlefish That Loves Diving"
+    },
+    "cover": "covers/cover_8.svg",
+    "rating": 4.9,
+    "readers": 168000,
+    "genres": [
+      "悬疑",
+      "奇幻",
+      "冒险"
+    ],
+    "summary": {
+      "zh": "穿越到异世界的克莱恩凭借一本神秘笔记本，在诡秘与危险并存的维多利亚风世界中探索超凡之路。",
+      "en": "Transported to a different world, Klein relies on a mysterious notebook to explore the path of the extraordinary in a Victorian-style world full of secrets and danger."
+    },
+    "chapters": 1414,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "克苏鲁",
+      "穿越",
+      "西方奇幻"
+    ]
+  },
+  {
+    "id": 9,
+    "title": {
+      "zh": "我有一座恐怖屋",
+      "en": "I Have a Haunted House"
+    },
+    "author": {
+      "zh": "我会修空调",
+      "en": "I Can Fix Air Conditioners"
+    },
+    "cover": "covers/cover_9.svg",
+    "rating": 4.6,
+    "readers": 92000,
+    "genres": [
+      "悬疑",
+      "恐怖",
+      "都市"
+    ],
+    "summary": {
+      "zh": "继承了一家濒临倒闭的恐怖屋后，陈歌发现这座鬼屋似乎真的有鬼，而且不止一个。",
+      "en": "After inheriting a failing haunted house, Chen Ge discovers that this haunted house actually has real ghosts — and more than one."
+    },
+    "chapters": 1652,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "恐怖",
+      "灵异",
+      "轻松"
+    ]
+  },
+  {
+    "id": 10,
+    "title": {
+      "zh": "星穹之主",
+      "en": "Lord of the Starry Sky"
+    },
+    "author": {
+      "zh": "辰东",
+      "en": "Chen Dong"
+    },
+    "cover": "covers/cover_10.svg",
+    "rating": 4.5,
+    "readers": 78000,
+    "genres": [
+      "科幻",
+      "玄幻",
+      "冒险"
+    ],
+    "summary": {
+      "zh": "星际时代，人类走出地球进入宇宙大时代，少年楚风在星空中崛起，探寻宇宙最深处的秘密。",
+      "en": "In the interstellar era, humanity steps into the cosmos. Young Chu Feng rises among the stars, seeking the deepest secrets of the universe."
+    },
+    "chapters": 1345,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "星际",
+      "升级流",
+      "科幻"
+    ]
+  },
+  {
+    "id": 11,
+    "title": {
+      "zh": "何以笙箫默",
+      "en": "Silent Separation"
+    },
+    "author": {
+      "zh": "顾漫",
+      "en": "Gu Man"
+    },
+    "cover": "covers/cover_11.svg",
+    "rating": 4.4,
+    "readers": 65000,
+    "genres": [
+      "言情",
+      "都市"
+    ],
+    "summary": {
+      "zh": "一段年少时的爱恋，牵出一生的纠缠。七年分离后，何以琛与赵默笙再度重逢，爱恨交织。",
+      "en": "A youthful romance leads to a lifetime of entanglements. After seven years apart, He Yichen and Zhao Mosheng reunite in a mix of love and resentment."
+    },
+    "chapters": 43,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "虐恋",
+      "现代",
+      "经典"
+    ]
+  },
+  {
+    "id": 12,
+    "title": {
+      "zh": "仙王的日常生活",
+      "en": "The Daily Life of the Immortal King"
+    },
+    "author": {
+      "zh": "枯玄",
+      "en": "Kuu Xuan"
+    },
+    "cover": "covers/cover_12.svg",
+    "rating": 4.3,
+    "readers": 72000,
+    "genres": [
+      "仙侠",
+      "都市",
+      "搞笑"
+    ],
+    "summary": {
+      "zh": "一个拥有仙王实力却只想平凡度过学生时代的少年，他的日常生活注定不平凡。",
+      "en": "A teenager with the power of an immortal king who just wants to live a normal student life — but his daily life is destined to be anything but ordinary."
+    },
+    "chapters": 662,
+    "status": {
+      "zh": "连载中",
+      "en": "Ongoing"
+    },
+    "tags": [
+      "轻松",
+      "搞笑",
+      "校园"
+    ]
+  },
+  {
+    "id": 13,
+    "title": {
+      "zh": "修罗武神",
+      "en": "Martial God Asura"
+    },
+    "author": {
+      "zh": "善良的蜜蜂",
+      "en": "Kind Honey Bee"
+    },
+    "cover": "covers/cover_13.svg",
+    "rating": 4.4,
+    "readers": 105000,
+    "genres": [
+      "玄幻",
+      "动作"
+    ],
+    "summary": {
+      "zh": "修罗武神，主宰苍穹！一个被家族遗弃的少年，凭借体内的九色神雷，逆天改命，成就武神之路。",
+      "en": "Abandoned by his clan, a young boy relies on the nine-colored divine thunder within him to defy fate and walk the path of a martial god."
+    },
+    "chapters": 5725,
+    "status": {
+      "zh": "连载中",
+      "en": "Ongoing"
+    },
+    "tags": [
+      "热血",
+      "升级流",
+      "逆袭"
+    ]
+  },
+  {
+    "id": 14,
+    "title": {
+      "zh": "末日轮盘",
+      "en": "Doomsday Roulette"
+    },
+    "author": {
+      "zh": "烟花",
+      "en": "Fireworks"
+    },
+    "cover": "covers/cover_14.svg",
+    "rating": 4.2,
+    "readers": 55000,
+    "genres": [
+      "科幻",
+      "悬疑",
+      "恐怖"
+    ],
+    "summary": {
+      "zh": "末日降临，世界陷入混乱。一个神秘的轮盘系统出现，只有通过轮盘赌命的人才能获得生存的资格。",
+      "en": "The apocalypse descends, plunging the world into chaos. A mysterious roulette system appears — only those who gamble with their lives can survive."
+    },
+    "chapters": 1286,
+    "status": {
+      "zh": "已完结",
+      "en": "Completed"
+    },
+    "tags": [
+      "末日",
+      "生存",
+      "系统流"
+    ]
+  }
+]
