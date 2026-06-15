@@ -1,0 +1,441 @@
+#!/usr/bin/env node
+// 生成大型小说数据集（60+ 部热门网文）
+var fs = require('fs');
+
+var novels = [
+  // ===== 玄幻 (Xuanhuan) =====
+  {
+    id: 1, title: { zh: "斗破苍穹", en: "Battle Through the Heavens" },
+    author: { zh: "天蚕土豆", en: "Heavenly Silkworm Potato" },
+    rating: 4.7, readers: 125000, genres: ["玄幻", "动作", "冒险"],
+    summary: { zh: "这里是属于斗气的世界，没有花俏艳丽的魔法，有的，仅仅是繁衍到巅峰的斗气！", en: "In a world where the strong make the rules and the weak are enslaved, a young man named Xiao Yan works to restore his family's honor." },
+    chapters: 1648, status: { zh: "已完结", en: "Completed" }, tags: ["热血", "升级流", "强者回归"]
+  },
+  {
+    id: 2, title: { zh: "完美世界", en: "Perfect World" },
+    author: { zh: "辰东", en: "Chen Dong" },
+    rating: 4.7, readers: 118000, genres: ["玄幻", "冒险"],
+    summary: { zh: "一粒尘可填海，一根草斩尽日月星辰。少年石昊从大荒中走出，踏上了征战诸天的道路。", en: "A speck of dust can fill the sea, a blade of grass can cut down stars. Young Shi Hao walks out of the wilderness to conquer the heavens." },
+    chapters: 2096, status: { zh: "已完结", en: "Completed" }, tags: ["热血", "经典", "东方玄幻"]
+  },
+  {
+    id: 3, title: { zh: "盘龙", en: "Coiling Dragon" },
+    author: { zh: "我吃西红柿", en: "I Eat Tomatoes" },
+    rating: 4.6, readers: 105000, genres: ["玄幻", "奇幻"],
+    summary: { zh: "大陆上传说中的四大终极战士，林雷无意中得到了传说中的盘龙戒指，走上了强者之路。", en: "Linley unexpectedly obtains the legendary Coiling Dragon ring and embarks on the path to becoming one of the continent's ultimate warriors." },
+    chapters: 807, status: { zh: "已完结", en: "Completed" }, tags: ["西方奇幻", "魔法", "升级流"]
+  },
+  {
+    id: 4, title: { zh: "遮天", en: "Shrouding the Heavens" },
+    author: { zh: "辰东", en: "Chen Dong" },
+    rating: 4.8, readers: 132000, genres: ["玄幻", "仙侠"],
+    summary: { zh: "冰冷与黑暗并存的宇宙深处，九具庞大的龙尸拉着一口青铜古棺，亘古长存。叶凡踏上星空古路，揭开遮天秘密。", en: "In the cold darkness of deep space, nine huge dragon corpses pull an ancient bronze coffin. Ye Fan embarks on a starry road to uncover the secrets that shroud the heavens." },
+    chapters: 1814, status: { zh: "已完结", en: "Completed" }, tags: ["经典", "热血", "星空"]
+  },
+  {
+    id: 5, title: { zh: "武动乾坤", en: "Martial Universe" },
+    author: { zh: "天蚕土豆", en: "Heavenly Silkworm Potato" },
+    rating: 4.5, readers: 95000, genres: ["玄幻", "动作"],
+    summary: { zh: "少年林动偶然获得神秘石符，从此踏上武学之路，在武道之途上不断突破自我。", en: "Young Lin Dong accidentally obtains a mysterious stone talisman, embarking on a martial arts journey of constant self-breakthrough." },
+    chapters: 1318, status: { zh: "已完结", en: "Completed" }, tags: ["热血", "升级流", "冒险"]
+  },
+  {
+    id: 6, title: { zh: "大主宰", en: "The Great Ruler" },
+    author: { zh: "天蚕土豆", en: "Heavenly Silkworm Potato" },
+    rating: 4.4, readers: 92000, genres: ["玄幻", "冒险"],
+    summary: { zh: "少年牧尘自北灵境而出，骑九幽冥雀，闯向那精彩绝伦的大千世界。", en: "Young Mu Chen emerges from the Northern Spirit Realm, riding the Netherworld Sparrow into the boundless and magnificent Greater World." },
+    chapters: 1580, status: { zh: "已完结", en: "Completed" }, tags: ["热血", "学院", "天才流"]
+  },
+  {
+    id: 7, title: { zh: "牧神记", en: "Tales of Herding Gods" },
+    author: { zh: "宅猪", en: "House Pig" },
+    rating: 4.7, readers: 88000, genres: ["玄幻", "奇幻"],
+    summary: { zh: "大墟的祖训说，天黑别出门。残老村的老头们抚养秦牧长大，教给他颠覆世界的知识。", en: "The ancestors said: don't go out after dark. The elders of the Crippled Village raise Qin Mu, teaching him knowledge that will overturn the world." },
+    chapters: 1959, status: { zh: "已完结", en: "Completed" }, tags: ["反套路", "智慧", "经典"]
+  },
+  {
+    id: 8, title: { zh: "神墓", en: "Grave of the Gods" },
+    author: { zh: "辰东", en: "Chen Dong" },
+    rating: 4.6, readers: 85000, genres: ["玄幻", "奇幻"],
+    summary: { zh: "神魔陵园中，万古以来埋葬了无数神魔。辰南从墓地中复活走出，探寻万古的真相。", en: "In the Divine Demon Cemetery, countless gods and demons have been buried for eons. Chen Nan rises from his grave to uncover the truth of eternity." },
+    chapters: 1399, status: { zh: "已完结", en: "Completed" }, tags: ["经典", "热血", "东方玄幻"]
+  },
+  {
+    id: 9, title: { zh: "修罗武神", en: "Martial God Asura" },
+    author: { zh: "善良的蜜蜂", en: "Kind Honey Bee" },
+    rating: 4.4, readers: 105000, genres: ["玄幻", "动作"],
+    summary: { zh: "被家族遗弃的少年，凭借体内的九色神雷，逆天改命，成就武神之路。", en: "Abandoned by his clan, a young boy relies on the nine-colored divine thunder within him to defy fate and walk the path of a martial god." },
+    chapters: 5725, status: { zh: "连载中", en: "Ongoing" }, tags: ["热血", "升级流", "逆袭"]
+  },
+  {
+    id: 10, title: { zh: "剑来", en: "The Sword's Coming" },
+    author: { zh: "烽火戏诸侯", en: "Beacon Fires Play with the Vassals" },
+    rating: 4.8, readers: 97000, genres: ["玄幻", "仙侠", "权谋"],
+    summary: { zh: "大千世界，无奇不有。少年陈平安带着一身木剑，走出小镇，踏上浩浩荡荡的修行之路。", en: "A world of wonders. Young Chen Ping'an carries his wooden sword out of a small town and embarks on a magnificent cultivation journey." },
+    chapters: 2698, status: { zh: "连载中", en: "Ongoing" }, tags: ["经典", "文笔佳", "哲理"]
+  },
+  {
+    id: 11, title: { zh: "庆余年", en: "Joy of Life" },
+    author: { zh: "猫腻", en: "Mao Ni" },
+    rating: 4.7, readers: 113000, genres: ["玄幻", "历史", "权谋"],
+    summary: { zh: "一个身世神秘的年轻人范闲，在家族、江湖、庙堂的纷争中逐渐成长，书写了一段传奇人生。", en: "A young man with a mysterious background grows up amidst the conflicts of family, martial arts world, and imperial court, writing a legendary life." },
+    chapters: 726, status: { zh: "已完结", en: "Completed" }, tags: ["权谋", "穿越", "经典"]
+  },
+
+  // ===== 仙侠 (Xianxia) =====
+  {
+    id: 12, title: { zh: "凡人修仙传", en: "A Record of a Mortal's Journey to Immortality" },
+    author: { zh: "忘语", en: "Wang Yu" },
+    rating: 4.6, readers: 98000, genres: ["仙侠", "奇幻"],
+    summary: { zh: "一个普通的山村少年，偶然踏入修仙之门，从此走上了一条坎坷漫长的修仙之路。", en: "An ordinary village youth accidentally stumbles onto the path of immortality, beginning a long and arduous cultivation journey." },
+    chapters: 2457, status: { zh: "已完结", en: "Completed" }, tags: ["凡人流", "经典", "修仙"]
+  },
+  {
+    id: 13, title: { zh: "我欲封天", en: "I Shall Seal the Heavens" },
+    author: { zh: "耳根", en: "Er Gen" },
+    rating: 4.7, readers: 102000, genres: ["仙侠", "奇幻"],
+    summary: { zh: "我命如妖欲封天！少年孟浩踏入修仙之路，以逆天之姿走向封天之路。", en: "My fate is like a demon, I shall seal the heavens! Meng Hao walks the path of immortality, defying heaven itself." },
+    chapters: 1611, status: { zh: "已完结", en: "Completed" }, tags: ["热血", "经典", "搞笑"]
+  },
+  {
+    id: 14, title: { zh: "一念永恒", en: "A Will Eternal" },
+    author: { zh: "耳根", en: "Er Gen" },
+    rating: 4.6, readers: 85000, genres: ["仙侠", "搞笑"],
+    summary: { zh: "一念化沧海，一念化桑田。少年白小纯为追求长生踏入修仙界，搞笑又热血的修行之旅。", en: "A thought becomes the ocean, a thought becomes the fields. Bai Xiaochun enters the cultivation world seeking immortality, in a hilarious yet thrilling journey." },
+    chapters: 1318, status: { zh: "已完结", en: "Completed" }, tags: ["搞笑", "热血", "经典"]
+  },
+  {
+    id: 15, title: { zh: "仙逆", en: "Rebel! Against Immortals" },
+    author: { zh: "耳根", en: "Er Gen" },
+    rating: 4.6, readers: 78000, genres: ["仙侠", "奇幻"],
+    summary: { zh: "顺为凡，逆则仙，只在心中一念间。少年王林崛起于微末，以逆天之力走上修仙巅峰。", en: "To follow is mortal, to rebel is immortal — it's all in a single thought. Wang Lin rises from obscurity to the peak of immortality through defiance." },
+    chapters: 2090, status: { zh: "已完结", en: "Completed" }, tags: ["经典", "凡人流", "热血"]
+  },
+  {
+    id: 16, title: { zh: "求魔", en: "Seeking the Devil" },
+    author: { zh: "耳根", en: "Er Gen" },
+    rating: 4.5, readers: 65000, genres: ["仙侠", "玄幻"],
+    summary: { zh: "命运，已将我抛弃；而我，却凌驾于命运之上！苏铭踏上了一条充满悲伤与希望的求魔之路。", en: "Fate has abandoned me, yet I rise above fate itself! Su Ming embarks on a path of sorrow and hope — the path of seeking the devil." },
+    chapters: 1728, status: { zh: "已完结", en: "Completed" }, tags: ["虐主", "经典", "悲剧"]
+  },
+  {
+    id: 17, title: { zh: "魔道祖师", en: "Grandmaster of Demonic Cultivation" },
+    author: { zh: "墨香铜臭", en: "Mo Xiang Tong Xiu" },
+    rating: 4.8, readers: 156000, genres: ["仙侠", "悬疑", "奇幻"],
+    summary: { zh: "前世的魏无羡万人唾骂，重生后与旧识蓝忘机携手探寻谜团背后的真相。", en: "Reviled by the world in his past life, Wei Wuxian reunites with Lan Wangji to uncover the truth behind a series of mysteries." },
+    chapters: 126, status: { zh: "已完结", en: "Completed" }, tags: ["耽美", "悬疑", "经典"]
+  },
+  {
+    id: 18, title: { zh: "天官赐福", en: "Heaven Official's Blessing" },
+    author: { zh: "墨香铜臭", en: "Mo Xiang Tong Xiu" },
+    rating: 4.8, readers: 148000, genres: ["仙侠", "奇幻", "言情"],
+    summary: { zh: "八百年前，谢怜是仙界最耀眼的太子殿下。八百年后，他三度飞升，成为最落魄的天官。", en: "Eight hundred years ago, Xie Lian was the most brilliant prince of the heavenly realm. After three ascensions, he becomes the most destitute heavenly official." },
+    chapters: 245, status: { zh: "已完结", en: "Completed" }, tags: ["耽美", "经典", "治愈"]
+  },
+  {
+    id: 19, title: { zh: "仙王的日常生活", en: "The Daily Life of the Immortal King" },
+    author: { zh: "枯玄", en: "Kuu Xuan" },
+    rating: 4.3, readers: 72000, genres: ["仙侠", "都市", "搞笑"],
+    summary: { zh: "拥有仙王实力的少年只想平凡度过学生时代，但他的日常生活注定不平凡。", en: "A teenager with the power of an immortal king just wants a normal student life — but his daily life is anything but ordinary." },
+    chapters: 662, status: { zh: "连载中", en: "Ongoing" }, tags: ["轻松", "搞笑", "校园"]
+  },
+  {
+    id: 20, title: { zh: "大道朝天", en: "The Path Toward Heaven" },
+    author: { zh: "猫腻", en: "Mao Ni" },
+    rating: 4.5, readers: 62000, genres: ["仙侠", "奇幻"],
+    summary: { zh: "青山宗的小师叔景阳真人，修行天赋冠绝古今，却因一场意外而步入轮回转世。", en: "The youngest grand-uncle of Green Mountain Sect, Jing Yang, possesses unparalleled talent — until an accident sends him into reincarnation." },
+    chapters: 1088, status: { zh: "已完结", en: "Completed" }, tags: ["文笔佳", "仙侠", "经典"]
+  },
+  {
+    id: 21, title: { zh: "莽荒纪", en: "The Legend of Chaos" },
+    author: { zh: "我吃西红柿", en: "I Eat Tomatoes" },
+    rating: 4.5, readers: 82000, genres: ["仙侠", "玄幻"],
+    summary: { zh: "纪宁因为一场意外穿越到莽荒世界，成为部落少年，凭借剑道天赋崛起于天地之间。", en: "Ji Ning is transported to a primordial world where he rises through his sword talent, transforming from a tribal youth into a legendary figure." },
+    chapters: 1556, status: { zh: "已完结", en: "Completed" }, tags: ["穿越", "经典", "剑道"]
+  },
+  {
+    id: 22, title: { zh: "紫府仙缘", en: "The Purple Immortal" },
+    author: { zh: "百里玺", en: "Bai Li Xi" },
+    rating: 4.3, readers: 45000, genres: ["仙侠", "奇幻"],
+    summary: { zh: "一个平凡的现代人穿越到修仙世界，凭借紫府之资，一步一步踏上修仙大道。", en: "An ordinary modern man is transported to a cultivation world where he slowly walks the immortal path with his purple mansion talent." },
+    chapters: 1625, status: { zh: "已完结", en: "Completed" }, tags: ["穿越", "凡人流", "轻松"]
+  },
+
+  // ===== 都市 (Urban) =====
+  {
+    id: 23, title: { zh: "全职高手", en: "The King's Avatar" },
+    author: { zh: "蝴蝶蓝", en: "Butterfly Blue" },
+    rating: 4.8, readers: 142000, genres: ["都市", "游戏", "竞技"],
+    summary: { zh: "网游荣耀中被誉为斗神的叶修被俱乐部驱逐，转身成为网吧网管，重返荣耀巅峰。", en: "Ye Xiu, the Battle God of Glory, is expelled from his club and becomes an internet café manager, fighting his way back to the top." },
+    chapters: 1728, status: { zh: "已完结", en: "Completed" }, tags: ["电竞", "热血", "爽文"]
+  },
+  {
+    id: 24, title: { zh: "超级神基因", en: "Super Gene" },
+    author: { zh: "十二翼黑暗炽天使", en: "Twelve-winged Dark Seraphim" },
+    rating: 4.5, readers: 88000, genres: ["都市", "科幻", "冒险"],
+    summary: { zh: "未来世界，人类通过基因核来进化。韩森获得超级神基因系统，踏上成神之路。", en: "In a future where humans evolve through gene nuclei, Han Sen obtains the Super Gene system and walks the path to godhood." },
+    chapters: 3469, status: { zh: "已完结", en: "Completed" }, tags: ["系统流", "升级流", "科幻"]
+  },
+  {
+    id: 25, title: { zh: "校花的贴身高手", en: "Campus Close Combat" },
+    author: { zh: "鱼人二代", en: "Fishman Second Generation" },
+    rating: 4.1, readers: 95000, genres: ["都市", "言情", "动作"],
+    summary: { zh: "神秘高手林逸奉师命下山保护校花，从此卷入了一系列纷繁复杂的事件中。", en: "A mysterious master, Lin Yi, is ordered by his master to protect a campus belle, getting drawn into a series of complex events." },
+    chapters: 13674, status: { zh: "连载中", en: "Ongoing" }, tags: ["爽文", "后宫", "校园"]
+  },
+  {
+    id: 26, title: { zh: "最强弃少", en: "The Strongest Abandoned Son" },
+    author: { zh: "鹅是老王", en: "Goose is Old Wang" },
+    rating: 4.2, readers: 78000, genres: ["都市", "奇幻"],
+    summary: { zh: "被家族抛弃的少年叶默，偶得炼丹传承，从弃少逆袭成为一代传奇。", en: "Abandoned by his family, Ye Mo accidentally obtains an alchemy inheritance, rising from a discarded son to a legend." },
+    chapters: 5221, status: { zh: "已完结", en: "Completed" }, tags: ["逆袭", "炼丹", "爽文"]
+  },
+  {
+    id: 27, title: { zh: "赘婿", en: "My Wife is a Beautiful CEO" },
+    author: { zh: "愤怒的香蕉", en: "Angry Banana" },
+    rating: 4.6, readers: 86000, genres: ["都市", "历史", "权谋"],
+    summary: { zh: "一名商业精英穿越到古代成为赘婿，凭借现代商业智慧，在乱世中创造商业帝国。", en: "A business精英 travels back in time, becoming a live-in son-in-law who uses modern business wisdom to build an empire in a chaotic era." },
+    chapters: 1958, status: { zh: "连载中", en: "Ongoing" }, tags: ["穿越", "权谋", "商战"]
+  },
+  {
+    id: 28, title: { zh: "重生之都市修仙", en: "Rebirth of the Urban Immortal Cultivator" },
+    author: { zh: "十里剑神", en: "Ten Mile Sword God" },
+    rating: 4.3, readers: 72000, genres: ["都市", "仙侠"],
+    summary: { zh: "渡劫期修仙者洛尘渡劫失败，重生回到地球少年时代，在今世重走修仙之路。", en: "An immortal cultivator fails his tribulation and is reborn as a teenager on Earth, walking the path of cultivation in a modern world." },
+    chapters: 2418, status: { zh: "连载中", en: "Ongoing" }, tags: ["重生", "爽文", "热血"]
+  },
+  {
+    id: 29, title: { zh: "医道官途", en: "Medical Path Official Road" },
+    author: { zh: "苏幕遮", en: "Su Mu Zhe" },
+    rating: 4.0, readers: 58000, genres: ["都市", "言情"],
+    summary: { zh: "一位年轻医生凭借精湛的医术和过人的智慧，在官场与医道之间游刃有余。", en: "A young doctor navigates both the medical world and officialdom with exceptional skill and wisdom." },
+    chapters: 2890, status: { zh: "已完结", en: "Completed" }, tags: ["医生", "官场", "都市"]
+  },
+  {
+    id: 30, title: { zh: "黄金瞳", en: "Golden Eyes" },
+    author: { zh: "打眼", en: "Da Yan" },
+    rating: 4.4, readers: 68000, genres: ["都市", "悬疑"],
+    summary: { zh: "典当行小职员庄睿在一次意外中眼部受伤，觉醒了一双能看穿万物的黄金瞳。", en: "A pawn shop employee awakens golden eyes after an accident, gaining the ability to see through anything." },
+    chapters: 1310, status: { zh: "已完结", en: "Completed" }, tags: ["鉴宝", "异能", "都市"]
+  },
+  {
+    id: 31, title: { zh: "我真是大明星", en: "I Really Am a Superstar" },
+    author: { zh: "尝谕", en: "Chang Yu" },
+    rating: 4.3, readers: 75000, genres: ["都市", "搞笑"],
+    summary: { zh: "一觉醒来，世界变了。张烨穿越到平行世界，凭借另一个世界的文娱作品成为大明星。", en: "Zhang Ye wakes up in a parallel world, using cultural works from his original world to become a superstar." },
+    chapters: 1338, status: { zh: "已完结", en: "Completed" }, tags: ["穿越", "文娱", "搞笑"]
+  },
+
+  // ===== 科幻 (Sci-Fi) =====
+  {
+    id: 32, title: { zh: "三体", en: "The Three-Body Problem" },
+    author: { zh: "刘慈欣", en: "Liu Cixin" },
+    rating: 4.9, readers: 200000, genres: ["科幻", "悬疑"],
+    summary: { zh: "文化大革命末期，军方探寻外星文明的绝密计划「红岸工程」取得了突破性进展。", en: "During the Cultural Revolution, a secret military project called Red Coast makes a breakthrough in contacting extraterrestrial civilization." },
+    chapters: 96, status: { zh: "已完结", en: "Completed" }, tags: ["硬科幻", "经典", "宇宙"]
+  },
+  {
+    id: 33, title: { zh: "吞噬星空", en: "Swallowed Star" },
+    author: { zh: "我吃西红柿", en: "I Eat Tomatoes" },
+    rating: 4.6, readers: 115000, genres: ["科幻", "玄幻", "动作"],
+    summary: { zh: "大涅槃时期后，地球发生了巨变。少年罗峰崛起于微末，在星际中闯出一片天地。", en: "After the Great Nirvana period, Earth has transformed. Luo Feng rises from obscurity, making his name across the stars." },
+    chapters: 1080, status: { zh: "已完结", en: "Completed" }, tags: ["星际", "热血", "经典"]
+  },
+  {
+    id: 34, title: { zh: "星穹之主", en: "Lord of the Starry Sky" },
+    author: { zh: "辰东", en: "Chen Dong" },
+    rating: 4.5, readers: 78000, genres: ["科幻", "玄幻", "冒险"],
+    summary: { zh: "星际时代，人类走出地球进入宇宙大时代，楚风在星空中崛起，探寻宇宙最深处的秘密。", en: "In the interstellar era, humanity steps into the cosmos. Chu Feng rises among the stars, seeking the deepest secrets of the universe." },
+    chapters: 1345, status: { zh: "已完结", en: "Completed" }, tags: ["星际", "升级流", "科幻"]
+  },
+  {
+    id: 35, title: { zh: "无限恐怖", en: "Infinite Horror" },
+    author: { zh: "zhttty", en: "Zhttty" },
+    rating: 4.5, readers: 88000, genres: ["科幻", "悬疑", "恐怖"],
+    summary: { zh: "郑吒进入了一个名为「主神空间」的神秘空间，穿梭于各个恐怖片世界完成任务。", en: "Zheng Zha enters a mysterious space called the 'God's Domain', traveling through horror movie worlds to complete missions." },
+    chapters: 556, status: { zh: "已完结", en: "Completed" }, tags: ["无限流", "经典", "生存"]
+  },
+  {
+    id: 36, title: { zh: "末日轮盘", en: "Doomsday Roulette" },
+    author: { zh: "烟花", en: "Fireworks" },
+    rating: 4.2, readers: 55000, genres: ["科幻", "悬疑", "恐怖"],
+    summary: { zh: "末日降临，世界陷入混乱。一个神秘的轮盘系统出现，只有通过轮盘赌命的人才能获得生存资格。", en: "The apocalypse descends, plunging the world into chaos. A mysterious roulette system appears — only those who gamble with their lives can survive." },
+    chapters: 1286, status: { zh: "已完结", en: "Completed" }, tags: ["末日", "生存", "系统流"]
+  },
+  {
+    id: 37, title: { zh: "深空之下", en: "Under the Deep Space" },
+    author: { zh: "最终永恒", en: "Final Eternal" },
+    rating: 4.4, readers: 48000, genres: ["科幻"],
+    summary: { zh: "人类终于实现了星际航行，却发现宇宙中充满了远超想象的文明和危机。", en: "Humanity finally achieves interstellar travel, only to discover a universe filled with civilizations and dangers beyond imagination." },
+    chapters: 856, status: { zh: "已完结", en: "Completed" }, tags: ["硬科幻", "星际", "文明"]
+  },
+  {
+    id: 38, title: { zh: "学霸的黑科技系统", en: "The Black Technology System of a Top Student" },
+    author: { zh: "晨星LL", en: "Morning Star LL" },
+    rating: 4.5, readers: 62000, genres: ["科幻", "都市"],
+    summary: { zh: "意外绑定了黑科技系统，陆舟从一个普通大学生成长为引领人类科技变革的科学家。", en: "Accidentally bound to a black technology system, Lu Zhou grows from an ordinary student to a scientist leading humanity's technological revolution." },
+    chapters: 1492, status: { zh: "已完结", en: "Completed" }, tags: ["系统流", "科技", "学霸"]
+  },
+  {
+    id: 39, title: { zh: "我在精神病院学斩神", en: "Learning to Kill Gods in a Mental Hospital" },
+    author: { zh: "三九音域", en: "Three-Nine Tone Domain" },
+    rating: 4.6, readers: 82000, genres: ["科幻", "悬疑", "都市"],
+    summary: { zh: "林七夜在精神病院中觉醒异能，发现这个世界远比他想象的更加危险和神秘。", en: "Lin Qiyue awakens supernatural abilities in a mental hospital, discovering the world is far more dangerous and mysterious than he ever imagined." },
+    chapters: 1250, status: { zh: "已完结", en: "Completed" }, tags: ["异能", "战斗", "热血"]
+  },
+  {
+    id: 40, title: { zh: "黎明之剑", en: "Sword of Dawn" },
+    author: { zh: "远瞳", en: "Far Eye" },
+    rating: 4.7, readers: 56000, genres: ["科幻", "奇幻", "冒险"],
+    summary: { zh: "高文穿越到异世界，用科学思维和现代知识，带领落后的文明走向黎明。", en: "Gawain travels to a different world, using scientific thinking and modern knowledge to lead a backward civilization toward the dawn." },
+    chapters: 2512, status: { zh: "已完结", en: "Completed" }, tags: ["种田", "科幻", "西方奇幻"]
+  },
+
+  // ===== 言情 (Romance) =====
+  {
+    id: 41, title: { zh: "微微一笑很倾城", en: "Love O2O" },
+    author: { zh: "顾漫", en: "Gu Man" },
+    rating: 4.5, readers: 87000, genres: ["言情", "都市", "游戏"],
+    summary: { zh: "系花贝微微在游戏中意外嫁给了全服第一高手，一段从线上到线下的甜蜜爱情就此展开。", en: "University beauty Bei Weiwei unexpectedly marries the top player in an online game, beginning a sweet romance bridging the virtual and real worlds." },
+    chapters: 62, status: { zh: "已完结", en: "Completed" }, tags: ["甜宠", "轻松", "校园"]
+  },
+  {
+    id: 42, title: { zh: "何以笙箫默", en: "Silent Separation" },
+    author: { zh: "顾漫", en: "Gu Man" },
+    rating: 4.4, readers: 65000, genres: ["言情", "都市"],
+    summary: { zh: "一段年少时的爱恋，牵出一生的纠缠。七年分离后，何以琛与赵默笙再度重逢。", en: "A youthful romance leads to a lifetime of entanglements. After seven years apart, He Yichen and Zhao Mosheng reunite." },
+    chapters: 43, status: { zh: "已完结", en: "Completed" }, tags: ["虐恋", "现代", "经典"]
+  },
+  {
+    id: 43, title: { zh: "花千骨", en: "The Journey of Flower" },
+    author: { zh: "Fresh果果", en: "Fresh Fruit" },
+    rating: 4.4, readers: 105000, genres: ["言情", "仙侠", "奇幻"],
+    summary: { zh: "花千骨是一个命格诡异的孤女，拜入长留上仙白子画门下，一段旷世之恋就此展开。", en: "Hua Qiangu, an orphan with a bizarre fate, becomes the disciple of immortal master Bai Zihua, beginning an epic love story." },
+    chapters: 104, status: { zh: "已完结", en: "Completed" }, tags: ["虐恋", "仙侠", "经典"]
+  },
+  {
+    id: 44, title: { zh: "三生三世十里桃花", en: "Three Lives Three Worlds Ten Miles Peach Blossoms" },
+    author: { zh: "唐七公子", en: "Tang Qi Gong Zi" },
+    rating: 4.5, readers: 120000, genres: ["言情", "仙侠", "奇幻"],
+    summary: { zh: "青丘帝姬白浅与天族太子夜华历经三生三世的爱恨纠葛，终成眷属。", en: "The green hill princess Bai Qian and the heavenly prince Ye Hua experience love and heartbreak across three lifetimes." },
+    chapters: 73, status: { zh: "已完结", en: "Completed" }, tags: ["经典", "仙侠", "虐恋"]
+  },
+  {
+    id: 45, title: { zh: "香蜜沉沉烬如霜", en: "Ashes of Love" },
+    author: { zh: "电线", en: "Electric Wire" },
+    rating: 4.4, readers: 95000, genres: ["言情", "仙侠", "奇幻"],
+    summary: { zh: "花神之女锦觅与天帝之子旭凤三世轮回的恩怨痴缠，守望千年的爱情故事。", en: "The flower goddess's daughter Jin Mi and the heavenly emperor's son Xu Feng are entangled across three lifetimes in a love story spanning millennia." },
+    chapters: 87, status: { zh: "已完结", en: "Completed" }, tags: ["虐恋", "仙侠", "经典"]
+  },
+  {
+    id: 46, title: { zh: "知否知否应是绿肥红瘦", en: "The Legend of Minglan" },
+    author: { zh: "关心则乱", en: "Carefree" },
+    rating: 4.6, readers: 88000, genres: ["言情", "历史", "权谋"],
+    summary: { zh: "现代法律系学生姚依依穿越到古代成为庶女盛明兰，在宅斗和权谋中守护自己与所爱之人。", en: "A modern law student travels back in time as Shen Minglan, navigating palace intrigue and family politics to protect herself and those she loves." },
+    chapters: 218, status: { zh: "已完结", en: "Completed" }, tags: ["穿越", "宅斗", "经典"]
+  },
+  {
+    id: 47, title: { zh: "琅琊榜", en: "Nirvana in Fire" },
+    author: { zh: "海宴", en: "Hai Yan" },
+    rating: 4.8, readers: 135000, genres: ["言情", "权谋", "历史"],
+    summary: { zh: "十二年前一场大火烧尽了赤焰军的荣耀。梅长苏以病弱之躯重返帝都，掀起滔天权谋风暴。", en: "A fire twelve years ago destroyed the honor of the Chiyan Army. Mei Changsu returns to the capital with a frail body, unleashing a storm of political intrigue." },
+    chapters: 50, status: { zh: "已完结", en: "Completed" }, tags: ["权谋", "经典", "复仇"]
+  },
+  {
+    id: 48, title: { zh: "扶摇", en: "Legend of Fuyao" },
+    author: { zh: "天下归元", en: "Tian Xia Gui Yuan" },
+    rating: 4.3, readers: 72000, genres: ["言情", "奇幻", "冒险"],
+    summary: { zh: "孟扶摇为破解身上封印而踏上五洲历险之路，与长孙无极在并肩作战中互生情愫。", en: "Meng Fuyao embarks on a journey across five continents to break the seal on her body, falling in love with Zhangsun Wuji along the way." },
+    chapters: 172, status: { zh: "已完结", en: "Completed" }, tags: ["女强", "冒险", "热血"]
+  },
+  {
+    id: 49, title: { zh: "穿越之诗酒趁年华", en: "Poetry and Wine: A Time Travel Romance" },
+    author: { zh: "赏饭罚饿", en: "Reward Food Punish Hunger" },
+    rating: 4.2, readers: 42000, genres: ["言情", "历史"],
+    summary: { zh: "现代白领穿越到古代书香世家，凭借一手现代诗歌和经商头脑，在古代理出一片天地。", en: "A modern office worker travels to an ancient scholarly family, using her knowledge of poetry and business to make her way." },
+    chapters: 386, status: { zh: "已完结", en: "Completed" }, tags: ["穿越", "轻松", "甜宠"]
+  },
+  {
+    id: 50, title: { zh: "十年一品温如言", en: "Ten Years of Loving You" },
+    author: { zh: "书海沧生", en: "Book Sea Cang Sheng" },
+    rating: 4.4, readers: 56000, genres: ["言情", "都市"],
+    summary: { zh: "温衡和言希从年少到成年的十年爱情长跑，历经分离与重逢，终于守得云开见月明。", en: "Wen Heng and Yan Xi's ten-year love story from youth to adulthood, through separation and reunion, finally finding their happy ending." },
+    chapters: 95, status: { zh: "已完结", en: "Completed" }, tags: ["虐恋", "校园", "成长"]
+
+  // ===== 悬疑 (Mystery/Suspense) =====
+  },
+  {
+    id: 51, title: { zh: "诡秘之主", en: "Lord of the Mysteries" },
+    author: { zh: "爱潜水的乌贼", en: "Cuttlefish That Loves Diving" },
+    rating: 4.9, readers: 168000, genres: ["悬疑", "奇幻", "冒险"],
+    summary: { zh: "穿越到异世界的克莱恩凭借一本神秘笔记本，在诡秘与危险并存的维多利亚风世界中探索超凡之路。", en: "Transported to a different world, Klein relies on a mysterious notebook to explore the extraordinary path in a Victorian-style world full of secrets." },
+    chapters: 1414, status: { zh: "已完结", en: "Completed" }, tags: ["克苏鲁", "穿越", "西方奇幻"]
+  },
+  {
+    id: 52, title: { zh: "我有一座恐怖屋", en: "I Have a Haunted House" },
+    author: { zh: "我会修空调", en: "I Can Fix Air Conditioners" },
+    rating: 4.6, readers: 92000, genres: ["悬疑", "恐怖", "都市"],
+    summary: { zh: "继承了一家濒临倒闭的恐怖屋后，陈歌发现这座鬼屋似乎真的有鬼，而且不止一个。", en: "After inheriting a failing haunted house, Chen Ge discovers it actually has real ghosts — and more than one." },
+    chapters: 1652, status: { zh: "已完结", en: "Completed" }, tags: ["恐怖", "灵异", "轻松"]
+  },
+  {
+    id: 53, title: { zh: "盗墓笔记", en: "The Lost Tomb" },
+    author: { zh: "南派三叔", en: "Southern School Third Uncle" },
+    rating: 4.7, readers: 145000, genres: ["悬疑", "冒险", "恐怖"],
+    summary: { zh: "五十年前的一具战国古尸引出了一场横跨中国各地的盗墓冒险，吴邪与张起灵踏上了寻秘之旅。", en: "A fifty-year-old Warring States corpse triggers a treasure-hunting adventure across China, as Wu Xie and Zhang Qiling seek the truth." },
+    chapters: 318, status: { zh: "已完结", en: "Completed" }, tags: ["经典", "盗墓", "悬疑"]
+  },
+  {
+    id: 54, title: { zh: "鬼吹灯", en: "Ghost Blows Out the Light" },
+    author: { zh: "天下霸唱", en: "World Over Lord" },
+    rating: 4.7, readers: 138000, genres: ["悬疑", "冒险", "恐怖"],
+    summary: { zh: "胡八一凭借一本家传的《十六字阴阳风水秘术》残卷，与好友一同踏上了惊心动魄的盗墓之旅。", en: "Hu Bayi relies on a fragment of a family heirloom feng shui manual to embark on a heart-pounding grave-robbing adventure with his friends." },
+    chapters: 246, status: { zh: "已完结", en: "Completed" }, tags: ["经典", "盗墓", "灵异"]
+  },
+  {
+    id: 55, title: { zh: "死亡万花筒", en: "Kaleidoscope of Death" },
+    author: { zh: "西子绪", en: "Xi Zi Xu" },
+    rating: 4.5, readers: 68000, genres: ["悬疑", "恐怖", "奇幻"],
+    summary: { zh: "林秋石被卷入一个充满恐怖谜题的神秘世界，只有通过十二扇门的人才能回到现实。", en: "Lin Qiushi is pulled into a mysterious world of terrifying puzzles — only those who pass through twelve doors can return to reality." },
+    chapters: 308, status: { zh: "已完结", en: "Completed" }, tags: ["恐怖", "无限流", "惊悚"]
+  },
+  {
+    id: 56, title: { zh: "地狱公寓", en: "Hell Apartment" },
+    author: { zh: "黑色火种", en: "Black Fire Seed" },
+    rating: 4.3, readers: 52000, genres: ["悬疑", "恐怖"],
+    summary: { zh: "一座神秘的公寓里住着一群被诅咒的人，他们必须完成公寓下达的各种恐怖任务才能活下去。", en: "A mysterious apartment houses a group of cursed people who must complete terrifying tasks assigned by the apartment to survive." },
+    chapters: 820, status: { zh: "已完结", en: "Completed" }, tags: ["恐怖", "生存", "灵异"]
+  },
+  {
+    id: 57, title: { zh: "全球高考", en: "Global Examination" },
+    author: { zh: "木苏里", en: "Mu Su Li" },
+    rating: 4.5, readers: 75000, genres: ["悬疑", "科幻", "冒险"],
+    summary: { zh: "全球性的一场诡异考试降临，游惑被卷入其中，与神秘考官秦究在生死考验中并肩作战。", en: "A mysterious global examination descends upon the world. You Huo is drawn into it, fighting alongside the enigmatic examiner Qin Jiu." },
+    chapters: 127, status: { zh: "已完结", en: "Completed" }, tags: ["无限流", "悬疑", "耽美"]
+  },
+  {
+    id: 58, title: { zh: "噩梦惊袭", en: "Nightmare Strikes" },
+    author: { zh: "一头啊", en: "One Head" },
+    rating: 4.2, readers: 48000, genres: ["悬疑", "恐怖", "都市"],
+    summary: { zh: "方休每晚都会进入同一个噩梦世界，在梦中被各种恐怖存在追杀。当他在梦中死去，现实也将终结。", en: "Fang Xiu enters the same nightmare world every night, hunted by terrifying beings. When he dies in the dream, reality ends too." },
+    chapters: 721, status: { zh: "连载中", en: "Ongoing" }, tags: ["灵异", "恐怖", "悬疑"]
+  },
+  {
+    id: 59, title: { zh: "苗疆蛊事", en: "Miao Jiang Gu Story" },
+    author: { zh: "南无袈裟理科佛", en: "Namo Kasaya Science Buddha" },
+    rating: 4.3, readers: 58000, genres: ["悬疑", "恐怖", "奇幻"],
+    summary: { zh: "苗疆少年陆左意外获得巫蛊传承，从此卷入一系列诡异离奇的事件中。", en: "A Miao Jiang youth accidentally inherits a voodoo legacy, getting drawn into a series of bizarre and uncanny events." },
+    chapters: 1502, status: { zh: "已完结", en: "Completed" }, tags: ["灵异", "巫蛊", "悬疑"]
+  },
+  {
+    id: 60, title: { zh: "我在泰国卖佛牌", en: "Selling Amulets in Thailand" },
+    author: { zh: "南瓜不说话", en: "Pumpkin Doesn't Talk" },
+    rating: 4.1, readers: 42000, genres: ["悬疑", "恐怖", "都市"],
+    summary: { zh: "一个中国留学生在泰国意外进入佛牌行业，见识了各种诡异离奇的灵异事件。", en: "A Chinese student in Thailand accidentally enters the amulet business, witnessing all kinds of bizarre supernatural incidents." },
+    chapters: 586, status: { zh: "已完结", en: "Completed" }, tags: ["灵异", "泰式", "悬疑"]
+  }
+];
+
+// 保存到 novels.json
+fs.writeFileSync('novels.json', JSON.stringify(novels, null, 2), 'utf8');
+console.log('✅ 已生成 novels.json — 共 ' + novels.length + ' 部小说');
