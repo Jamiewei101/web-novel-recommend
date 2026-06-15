@@ -391,7 +391,7 @@
 
       var metaSpan = document.createElement('span');
       metaSpan.className = 'rank-meta';
-      metaSpan.textContent = '⭐ ' + novel.rating.toFixed(1) + '  ·  ' + formatNumber(novel.readers) + ' readers';
+      metaSpan.textContent = '⭐ ' + novel.rating.toFixed(1) + '  ·  ' + formatNumber(novel.readers) + ' ' + t('readers');
 
       info.appendChild(nameSpan);
       info.appendChild(metaSpan);
