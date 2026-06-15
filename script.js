@@ -223,9 +223,10 @@
   }
 
   // ---------- 渲染网格 ----------
-  function renderGrid(data) {
+  function renderGrid(data, emptyMsg) {
+    // 清除所有残留的空状态，避免重复
+    document.querySelectorAll('.empty-state').forEach(function (el) { el.remove(); });
     document.querySelector('.novel-grid') && document.querySelector('.novel-grid').remove();
-    document.querySelector('.empty-state') && document.querySelector('.empty-state').remove();
 
     var area = document.querySelector('.content-area');
     if (!area) return;
@@ -233,7 +234,7 @@
     if (data.length === 0) {
       var em = document.createElement('p');
       em.className = 'empty-state';
-      em.textContent = t('empty');
+      em.textContent = emptyMsg || t('empty');
       area.appendChild(em);
       return;
     }
@@ -507,15 +508,7 @@
       });
     }
 
-    renderGrid(result);
-
-    if (searchKeyword && result.length === 0) {
-      var em = document.createElement('p');
-      em.className = 'empty-state';
-      em.textContent = t('search-no-result');
-      var area = document.querySelector('.content-area');
-      if (area) area.appendChild(em);
-    }
+    renderGrid(result, searchKeyword ? t('search-no-result') : t('empty'));
   }
 
   // ---------- 筛选栏 ----------
